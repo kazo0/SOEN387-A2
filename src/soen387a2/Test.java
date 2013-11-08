@@ -32,9 +32,9 @@ public class Test extends HttpServlet {
 		UOW.newCurrent();
 		UOW unit = UOW.getCurrent();
 		Game gm = GameIdentiyMap.getInstance().get(1);
-		unit.registerClean(gm);
+		//unit.registerDirty(gm);
 		
-		//ChangeName(gm, "Hello world!!");
+		ChangeName(gm, "Hello world!!");
 		//Commit();
 		int  s = 5;
 	}
