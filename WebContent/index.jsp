@@ -7,6 +7,10 @@
 <title>Assignment 2</title>
 </head>
 <body>
+<<<<<<< HEAD
+	<p>Tomas Was Here :P</p>
+=======
 	<p>Tomas Was Here, fuck Tomas :P</p>
+>>>>>>> 32eda8c0f2067749e473cac98cc5e3b2a9aea0b8
 </body>
 </html>
