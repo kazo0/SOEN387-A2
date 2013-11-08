@@ -84,7 +84,6 @@ public class UOW {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Insert
 			obj.Insert(conn);
-			newObjects.remove(obj);
 		}
 	}
 	
@@ -93,7 +92,6 @@ public class UOW {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Update
 			obj.Update(conn);
-			newObjects.remove(obj);
 		}
 	}
 	
@@ -102,7 +100,6 @@ public class UOW {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Delete
 			obj.Delete(conn);
-			removedObjects.remove(obj);
 		}
 	}
 

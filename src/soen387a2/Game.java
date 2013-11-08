@@ -22,38 +22,31 @@ public class Game extends DomainObject {
 		Qty = qty;
 	}
 	
-	public void AddGame(Game gm) {
-		
-	
-	}
 
 	@Override
 	void Insert(Connection conn) {
 		// TODO Auto-generated method stub
 		//DB Insert 
-		String query = "";
-		ResultSet rs = DBAccess.ExecuteInsert(conn, query);
+		String values = "'" + this.Name + "','" + this.Price + "','" + this.Description + "','" + this.Qty + "'";
+		String query = "INSERT INTO Games (name,price,description,quantity) VALUES (" + values + ")";
+		int  id = DBAccess.ExecuteInsert(conn, query);
 		// Set id from DB
-		try {
-			this.setID(rs.getInt(1));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.setID(id);
+		
 		GameIdentiyMap.getInstance().addGame(this);
 	}
 
 	@Override
 	void Update(Connection conn) {
 		// TODO Auto-generated method stub
-		String query = "UPDATE Games SET name='" + Name + "',price='" + Price + "',description='" + Description + "' WHERE id=" + Integer.toString(this.getID());
+		String query = "UPDATE Games SET name='" + Name + "',price='" + Price + "',description='" + Description + "', quantity='" + Qty +  "' WHERE id=" + this.getID();
 		DBAccess.Execute(conn, query);
 	}
 
 	@Override
 	void Delete(Connection conn) {
 		// TODO Auto-generated method stub
-		String query = "";
+		String query = "DELETE FROM Games WHERE id=" + this.getID();
 		DBAccess.Execute(conn, query);
 		GameIdentiyMap.getInstance().delete(this.getID());
 

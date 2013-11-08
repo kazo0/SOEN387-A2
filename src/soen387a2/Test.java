@@ -32,9 +32,11 @@ public class Test extends HttpServlet {
 		UOW.newCurrent();
 		UOW unit = UOW.getCurrent();
 		Game gm = GameIdentiyMap.getInstance().get(1);
-		//unit.registerDirty(gm);
+		unit.registerClean(gm);
 		
 		ChangeName(gm, "Hello world!!");
+		Game newGame = new Game(0, "Title", "Desc" , 15.4 , 24);
+		AddGame(newGame);
 		Commit();
 		int  s = 5;
 	}
@@ -43,6 +45,10 @@ public class Test extends HttpServlet {
 		
 		gm.Name = name;
 		UOW.getCurrent().registerDirty(gm);
+	}
+	
+	private void AddGame(Game gm) {
+		UOW.getCurrent().registerNew(gm);
 	}
 	
 	private void Commit() {
