@@ -5,7 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Assert;
-
+import com.ass2.controller.JdbcUtilViaSSH;
+import com.ass2.controller.SSHjdbcSession;
 
 public class UOW {
 	private List newObjects = new ArrayList();
@@ -55,25 +56,42 @@ public class UOW {
 	}
 	
 	public void commit() {
-		insertNew();
-		updateDirty();
-		deleteRemoved();
+		
+		SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+		Connection connection = ssHsession.getConnection();
+		
+		if (connection != null)
+		{
+			insertNew(connection);
+			updateDirty(connection);
+			deleteRemoved(connection);
+			
+			//Close connection
+			JdbcUtilViaSSH.close(null, null, ssHsession);
+		}
+		
+		else 
+		{
+			System.out.println("Connection : false");
+		}
+		
+
 	}
-	private void insertNew() {
+	private void insertNew(Connection conn) {
 		for (Iterator objects = newObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			//MapperRegistry.getMapper(obj.getClass()).insert(obj);
 		}
 	}
 	
-	private void updateDirty() {
+	private void updateDirty(Connection conn) {
 		for (Iterator objects = dirtyObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			//MapperRegistry.getMapper(obj.getClass()).update(obj);
 		}
 	}
 	
-	private void deleteRemoved() {
+	private void deleteRemoved(Connection conn) {
 		for (Iterator objects = removedObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			//MapperRegistry.getMapper(obj.getClass()).delete(obj);
