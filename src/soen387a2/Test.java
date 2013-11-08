@@ -35,7 +35,7 @@ public class Test extends HttpServlet {
 		//unit.registerDirty(gm);
 		
 		ChangeName(gm, "Hello world!!");
-		//Commit();
+		Commit();
 		int  s = 5;
 	}
 

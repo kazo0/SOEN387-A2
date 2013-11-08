@@ -36,6 +36,7 @@ public class GameIdentiyMap {
 				int qty = rs.getInt("quantity");
 				gm = new Game(id,name,desc,price,qty);
 				this.addGame(gm);
+				JdbcUtilViaSSH.close(null, null, ssHsession);
 				}
 			catch (Exception ex) {
 					

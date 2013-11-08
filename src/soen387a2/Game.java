@@ -46,7 +46,7 @@ public class Game extends DomainObject {
 	@Override
 	void Update(Connection conn) {
 		// TODO Auto-generated method stub
-		String query = "";
+		String query = "UPDATE Games SET name='" + Name + "',price='" + Price + "',description='" + Description + "' WHERE id=" + Integer.toString(this.getID());
 		DBAccess.Execute(conn, query);
 	}
 
