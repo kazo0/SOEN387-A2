@@ -8,8 +8,9 @@ public class GameIdentiyMap {
 	private static GameIdentiyMap soleInstance = null;
 	
 	public static GameIdentiyMap getInstance() {
-		if (soleInstance == null) return new GameIdentiyMap();
-		else return soleInstance;
+		if (soleInstance == null) soleInstance =  new GameIdentiyMap();
+		
+		return soleInstance;
 	}
 	
 	private Map game = new HashMap(); 

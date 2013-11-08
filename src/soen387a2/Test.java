@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+import javax.el.ELException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +32,10 @@ public class Test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
+		
 		Game gm = GameIdentiyMap.getInstance().get(1);
 		if (gm == null) {
+			try{
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 			Connection connection = ssHsession.getConnection();
 			String query = "select * from Games where id = 1"; 
@@ -40,6 +43,10 @@ public class Test extends HttpServlet {
 			JdbcUtilViaSSH.printRs(rs);
 			int d = 5;
 			int s  = d + 3;
+			}
+			catch (ELException ex) {
+				
+			}
 			//gm = new Game(db param);
 			//Add to Identity map
 		}
