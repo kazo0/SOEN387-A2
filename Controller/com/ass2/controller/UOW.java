@@ -7,6 +7,8 @@ import java.util.List;
 import org.junit.Assert;
 import com.ass2.controller.JdbcUtilViaSSH;
 import com.ass2.controller.SSHjdbcSession;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class UOW {
 	private List newObjects = new ArrayList();
