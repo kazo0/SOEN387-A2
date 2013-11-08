@@ -1,12 +1,12 @@
-package com.ass2.controller;
+package soen387a2;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Assert;
-import com.ass2.controller.JdbcUtilViaSSH;
-import com.ass2.controller.SSHjdbcSession;
+import soen387a2.JdbcUtilViaSSH;
+import soen387a2.SSHjdbcSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 

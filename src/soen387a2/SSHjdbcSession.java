@@ -1,4 +1,4 @@
-package com.ass2.controller;
+package soen387a2;
 
 import java.sql.Connection;
 
