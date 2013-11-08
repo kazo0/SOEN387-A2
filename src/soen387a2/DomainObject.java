@@ -1,8 +1,10 @@
 package soen387a2;
 
+import java.sql.Connection;
+
 import org.junit.Assert;
 
-public class DomainObject {
+public abstract class DomainObject {
 
 	private int ID;
 	public int getID() {
@@ -18,6 +20,11 @@ public class DomainObject {
 	
 	public DomainObject() {
 	}
+
+	
+	abstract void Insert(Connection conn);
+	abstract void Update(Connection conn);
+	abstract void Delete(Connection conn);
 
 	
 	protected void markNew() {

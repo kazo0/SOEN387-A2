@@ -7,6 +7,9 @@
 <title>Assignment 2</title>
 </head>
 <body>
-	<p>Tomas Was Here, fuck Tomas :P</p>
+	<p>Tomas Was Here, fuck Tomas :P</p><a></a>
+	<form action="Test">
+		<input type="submit" value ="Test" />
+	</form>
 </body>
 </html>

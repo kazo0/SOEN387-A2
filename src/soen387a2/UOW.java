@@ -82,21 +82,27 @@ public class UOW {
 	private void insertNew(Connection conn) {
 		for (Iterator objects = newObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
-			//MapperRegistry.getMapper(obj.getClass()).insert(obj);
+			// DB Insert
+			obj.Insert(conn);
+			newObjects.remove(obj);
 		}
 	}
 	
 	private void updateDirty(Connection conn) {
 		for (Iterator objects = dirtyObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
-			//MapperRegistry.getMapper(obj.getClass()).update(obj);
+			// DB Update
+			obj.Update(conn);
+			newObjects.remove(obj);
 		}
 	}
 	
 	private void deleteRemoved(Connection conn) {
 		for (Iterator objects = removedObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
-			//MapperRegistry.getMapper(obj.getClass()).delete(obj);
+			// DB Delete
+			obj.Delete(conn);
+			removedObjects.remove(obj);
 		}
 	}
 
