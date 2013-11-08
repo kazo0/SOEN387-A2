@@ -1,10 +1,7 @@
 package soen387a2;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 
-import javax.el.ELException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,24 +29,24 @@ public class Test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		
+		UOW.newCurrent();
+		UOW unit = UOW.getCurrent();
 		Game gm = GameIdentiyMap.getInstance().get(1);
-		if (gm == null) {
-			try{
-			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-			Connection connection = ssHsession.getConnection();
-			String query = "select * from Games where id = 1"; 
-			ResultSet rs = DBAccess.ExecuteQuery(connection, query);
-			JdbcUtilViaSSH.printRs(rs);
-			int d = 5;
-			int s  = d + 3;
-			}
-			catch (ELException ex) {
-				
-			}
-			//gm = new Game(db param);
-			//Add to Identity map
-		}
+		unit.registerClean(gm);
+		
+		//ChangeName(gm, "Hello world!!");
+		//Commit();
+		int  s = 5;
+	}
+
+	private void ChangeName(Game gm, String name) {
+		
+		gm.Name = name;
+		UOW.getCurrent().registerDirty(gm);
+	}
+	
+	private void Commit() {
+		UOW.getCurrent().commit();
 	}
 
 	/**

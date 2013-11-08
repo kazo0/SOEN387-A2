@@ -12,18 +12,19 @@ public class Game extends DomainObject {
 	public String Name;
 	public String Description;
 	public double Price;
-	public double Qty;	
+	public int Qty;	
 
-	public Game () {
-		
-	}
-	
-	public Game (int id, String name, String desc, double price, double qty ) {
-		this.setID(id);
+	public Game (int id, String name, String desc, double price, int qty ){
+		super(id);
 		Name = name;
 		Description = desc;
 		Price = price;
 		Qty = qty;
+	}
+	
+	public void AddGame(Game gm) {
+		
+	
 	}
 
 	@Override
@@ -57,6 +58,8 @@ public class Game extends DomainObject {
 		GameIdentiyMap.getInstance().delete(this.getID());
 
 	}
+	
+	
 
 }
 

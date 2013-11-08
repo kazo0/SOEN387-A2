@@ -1,5 +1,7 @@
 package soen387a2;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +21,27 @@ public class GameIdentiyMap {
 		soleInstance.game.put(arg.getID(), arg);
 	}
 	public Game get(int key) {
-		return (Game) soleInstance.game.get(key);
+		Game gm =  (Game) soleInstance.game.get(key);
+		if (gm == null) {
+			try{
+				SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+				Connection connection = ssHsession.getConnection();
+				String query = "select * from Games where id =" + key; 
+				ResultSet rs = DBAccess.ExecuteQuery(connection, query);
+				rs.next();
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				String desc = rs.getString("description");
+				int qty = rs.getInt("quantity");
+				gm = new Game(id,name,desc,price,qty);
+				this.addGame(gm);
+				}
+			catch (Exception ex) {
+					
+			}
+		}
+		return gm;
 	}
 	
 	public void delete(int key) {
