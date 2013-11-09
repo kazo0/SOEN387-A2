@@ -53,7 +53,7 @@ public class GameMapper {
 			e.printStackTrace();
 		}
 		
-		return (Game[]) list.toArray();
+		return list.toArray(new Game[list.size()]);
 	}
 	
 	public Game get(int key) {
