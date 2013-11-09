@@ -1,12 +1,14 @@
-package soen387a2;
+package model;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.JdbcUtilViaSSH;
+import model.SSHjdbcSession;
+
 import org.junit.Assert;
-import soen387a2.JdbcUtilViaSSH;
-import soen387a2.SSHjdbcSession;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 

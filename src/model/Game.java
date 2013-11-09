@@ -1,4 +1,4 @@
-package soen387a2;
+package model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
