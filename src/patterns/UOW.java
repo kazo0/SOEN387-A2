@@ -15,9 +15,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class UOW {
-	private List newObjects = new ArrayList();
-	private List dirtyObjects = new ArrayList();
-	private List removedObjects = new ArrayList();
+	private List<DomainObject> newObjects = new ArrayList();
+	private List<DomainObject> dirtyObjects = new ArrayList();
+	private List<DomainObject> removedObjects = new ArrayList();
 	private static ThreadLocal current = new ThreadLocal();
 	
 	
