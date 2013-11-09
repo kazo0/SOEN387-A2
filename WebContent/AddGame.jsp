@@ -26,7 +26,7 @@
 				<td><input name="Quantity" type="text" /> </td>
 			</tr>
 		</table>
-		<input type="hidden" value="add"/>
+		<input type="hidden" name="option" value="add"/>
 	</form>
 </body>
 </html>
