@@ -89,7 +89,7 @@ public class UOW {
 		for (Iterator objects = newObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Insert
-			obj.Insert(conn);
+			GameMapper.getInstance().insert(obj, conn);
 		}
 	}
 	
@@ -97,7 +97,7 @@ public class UOW {
 		for (Iterator objects = dirtyObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Update
-			obj.Update(conn);
+			GameMapper.getInstance().update(obj, conn);
 		}
 	}
 	
@@ -105,7 +105,7 @@ public class UOW {
 		for (Iterator objects = removedObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Delete
-			obj.Delete(conn);
+			GameMapper.getInstance().delete(obj.getID(), conn);
 		}
 	}
 

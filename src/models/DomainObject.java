@@ -22,12 +22,6 @@ public abstract class DomainObject {
 	
 	public DomainObject() {
 	}
-
-	
-	public abstract void Insert(Connection conn);
-	public abstract void Update(Connection conn);
-	public abstract void Delete(Connection conn);
-
 	
 	protected void markNew() {
 		UOW.getCurrent().registerNew(this);

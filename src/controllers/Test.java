@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import patterns.GameIdentityMap;
+import patterns.GameMapper;
 import patterns.UOW;
 import models.*;
 
@@ -35,7 +35,7 @@ public class Test extends HttpServlet {
 		// TODO Auto-generated method stub
 		UOW.newCurrent();
 		UOW unit = UOW.getCurrent();
-		Game gm = GameIdentityMap.getInstance().get(1);
+		Game gm = GameMapper.getInstance().get(1);
 		unit.registerClean(gm);
 		
 		ChangeName(gm, "Hello world!!");
@@ -47,7 +47,7 @@ public class Test extends HttpServlet {
 
 	private void ChangeName(Game gm, String name) {
 		
-		gm.Name = name;
+		gm.setName(name);
 		UOW.getCurrent().registerDirty(gm);
 	}
 	
