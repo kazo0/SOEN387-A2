@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import database.DBAccess;
+
 public class Game extends DomainObject {
 	
 	public String Name;

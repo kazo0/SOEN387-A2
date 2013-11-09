@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.JdbcUtilViaSSH;
-import model.SSHjdbcSession;
-
 import org.junit.Assert;
+
+import database.JdbcUtilViaSSH;
+import database.SSHjdbcSession;
 
 import java.sql.Connection;
 import java.sql.SQLException;

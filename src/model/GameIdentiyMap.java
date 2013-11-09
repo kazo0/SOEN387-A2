@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import database.DBAccess;
+import database.JdbcUtilViaSSH;
+import database.SSHjdbcSession;
+
 public class GameIdentiyMap {
 
 	private static GameIdentiyMap soleInstance = null;
