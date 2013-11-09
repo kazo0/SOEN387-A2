@@ -1,8 +1,10 @@
-package model;
+package models;
 
 import java.sql.Connection;
 
 import org.junit.Assert;
+
+import patterns.UOW;
 
 public abstract class DomainObject {
 
@@ -22,9 +24,9 @@ public abstract class DomainObject {
 	}
 
 	
-	abstract void Insert(Connection conn);
-	abstract void Update(Connection conn);
-	abstract void Delete(Connection conn);
+	public abstract void Insert(Connection conn);
+	public abstract void Update(Connection conn);
+	public abstract void Delete(Connection conn);
 
 	
 	protected void markNew() {

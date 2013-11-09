@@ -1,8 +1,10 @@
-package model;
+package patterns;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import models.*;
 
 import org.junit.Assert;
 

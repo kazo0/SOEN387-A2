@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import patterns.GameIdentityMap;
 import database.DBAccess;
 
 public class Game extends DomainObject {
@@ -26,7 +27,7 @@ public class Game extends DomainObject {
 	
 
 	@Override
-	void Insert(Connection conn) {
+	public void Insert(Connection conn) {
 		// TODO Auto-generated method stub
 		//DB Insert 
 		String values = "'" + this.Name + "','" + this.Price + "','" + this.Description + "','" + this.Qty + "'";
@@ -35,22 +36,22 @@ public class Game extends DomainObject {
 		// Set id from DB
 		this.setID(id);
 		
-		GameIdentiyMap.getInstance().addGame(this);
+		GameIdentityMap.getInstance().addGame(this);
 	}
 
 	@Override
-	void Update(Connection conn) {
+	public void Update(Connection conn) {
 		// TODO Auto-generated method stub
 		String query = "UPDATE Games SET name='" + Name + "',price='" + Price + "',description='" + Description + "', quantity='" + Qty +  "' WHERE id=" + this.getID();
 		DBAccess.Execute(conn, query);
 	}
 
 	@Override
-	void Delete(Connection conn) {
+	public void Delete(Connection conn) {
 		// TODO Auto-generated method stub
 		String query = "DELETE FROM Games WHERE id=" + this.getID();
 		DBAccess.Execute(conn, query);
-		GameIdentiyMap.getInstance().delete(this.getID());
+		GameIdentityMap.getInstance().delete(this.getID());
 
 	}
 	

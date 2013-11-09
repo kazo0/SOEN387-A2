@@ -1,20 +1,21 @@
-package model;
+package patterns;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.Game;
 import database.DBAccess;
 import database.JdbcUtilViaSSH;
 import database.SSHjdbcSession;
 
-public class GameIdentiyMap {
+public class GameIdentityMap {
 
-	private static GameIdentiyMap soleInstance = null;
+	private static GameIdentityMap soleInstance = null;
 	
-	public static GameIdentiyMap getInstance() {
-		if (soleInstance == null) soleInstance =  new GameIdentiyMap();
+	public static GameIdentityMap getInstance() {
+		if (soleInstance == null) soleInstance =  new GameIdentityMap();
 		
 		return soleInstance;
 	}
