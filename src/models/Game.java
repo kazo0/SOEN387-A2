@@ -57,15 +57,6 @@ public class Game extends DomainObject {
 	public void setQty(int qty) {
 		Qty = qty;
 	}
-
-	public DBStatus getStatus() {
-		return Status;
-	}
-
-	public void setStatus(DBStatus status) {
-		Status = status;
-	}
-	
 	
 
 }
