@@ -13,6 +13,7 @@ import database.SSHjdbcSession;
 
 public class GameMapper {
 
+	
 	private static GameMapper soleInstance = null;
 	
 	public static GameMapper getInstance() {

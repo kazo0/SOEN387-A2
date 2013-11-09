@@ -14,6 +14,7 @@ import database.SSHjdbcSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 public class UOW {
 	private List<DomainObject> newObjects = new ArrayList();
 	private List<DomainObject> dirtyObjects = new ArrayList();

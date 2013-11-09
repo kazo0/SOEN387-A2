@@ -12,6 +12,7 @@ import database.DBAccess;
 
 public class Game extends DomainObject {
 	
+	
 	private String Name;
 	private String Description;
 	private double Price;

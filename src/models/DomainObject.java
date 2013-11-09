@@ -8,6 +8,7 @@ import patterns.UOW;
 
 public abstract class DomainObject {
 
+	
 	private int ID;
 	public int getID() {
 		return ID;
