@@ -67,7 +67,9 @@ public class UOW {
 			insertNew(connection);
 			updateDirty(connection);
 			deleteRemoved(connection);
-			
+			newObjects.clear();
+			dirtyObjects.clear();
+			removedObjects.clear();
 			//Close connection
 			JdbcUtilViaSSH.close(null, null, ssHsession);
 		}

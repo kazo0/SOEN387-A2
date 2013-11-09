@@ -48,7 +48,8 @@ public class Test extends HttpServlet {
 	}
 	
 	private void AddGame(Game gm) {
-		UOW.getCurrent().registerNew(gm);
+	
+	UOW.getCurrent().registerNew(gm);
 	}
 	
 	private void Commit() {
