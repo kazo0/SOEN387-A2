@@ -29,6 +29,7 @@
 	   				<td><label><%= Items[i].getDescription()%></label></td>
 	   				<td><label><%= Items[i].getPrice()%></label></td>
 	   				<td><label><%= Items[i].getQty()%></label></td>
+	   				<td><label><%= Items[i].getStatus()%></label></td>
 				</tr>
 				<% } %>
 		</table>
