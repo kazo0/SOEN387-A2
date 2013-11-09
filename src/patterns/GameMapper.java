@@ -2,7 +2,10 @@ package patterns;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import models.DomainObject;
@@ -27,6 +30,32 @@ public class GameMapper {
 	public void addGameToMap(Game arg) {
 		soleInstance.game.put(arg.getID(), arg);
 	}
+	
+	public Game[] getAll() {
+		
+		List<Game> list = new ArrayList<Game>();
+		SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+		Connection connection = ssHsession.getConnection();
+		String query = "select * from Games";
+		ResultSet rs = DBAccess.ExecuteQuery(connection, query);
+		try {
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				String desc = rs.getString("description");
+				int qty = rs.getInt("quantity");
+				Game gm = new Game(id,name,desc,price,qty);
+				list.add(gm);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return (Game[]) list.toArray();
+	}
+	
 	public Game get(int key) {
 		Game gm =  (Game) soleInstance.game.get(key);
 		if (gm == null) {

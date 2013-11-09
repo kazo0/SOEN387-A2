@@ -10,6 +10,8 @@ public abstract class DomainObject {
 
 	
 	private int ID;
+	private DBStatus Status; 
+
 	public int getID() {
 		return ID;
 	}
@@ -24,17 +26,31 @@ public abstract class DomainObject {
 	public DomainObject() {
 	}
 	
-	protected void markNew() {
+	public DomainObject(int id, DBStatus status) {
+		this.ID = id;
+		this.Status = status;
+	}
+	public void markNew() {
+		this.setStatus(DBStatus.NEW);
 		UOW.getCurrent().registerNew(this);
 	}
-	protected void markClean() {
+	public void markClean() {
+		this.setStatus(DBStatus.CLEAN);
 		UOW.getCurrent().registerClean(this);
 	}
-	protected void markDirty() {
+	public void markDirty() {
+		this.setStatus(DBStatus.DIRTY);
 		UOW.getCurrent().registerDirty(this);
 	}
-	protected void markRemoved() {
+	public void markRemoved() {
+		this.setStatus(DBStatus.DELETED);
 		UOW.getCurrent().registerRemoved(this);
+	}
+	public DBStatus getStatus() {
+		return Status;
+	}
+	public void setStatus(DBStatus status) {
+		Status = status;
 	}
 
 }

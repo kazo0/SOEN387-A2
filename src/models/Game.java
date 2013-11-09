@@ -16,10 +16,10 @@ public class Game extends DomainObject {
 	private String Name;
 	private String Description;
 	private double Price;
-	private int Qty;	
+	private int Qty;
 
 	public Game (int id, String name, String desc, double price, int qty ){
-		super(id);
+		super(id, DBStatus.CLEAN);
 		Name = name;
 		Description = desc;
 		Price = price;
@@ -56,6 +56,14 @@ public class Game extends DomainObject {
 
 	public void setQty(int qty) {
 		Qty = qty;
+	}
+
+	public DBStatus getStatus() {
+		return Status;
+	}
+
+	public void setStatus(DBStatus status) {
+		Status = status;
 	}
 	
 	

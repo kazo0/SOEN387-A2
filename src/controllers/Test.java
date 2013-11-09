@@ -2,11 +2,13 @@ package controllers;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import patterns.GameMapper;
 import patterns.UOW;
@@ -36,25 +38,27 @@ public class Test extends HttpServlet {
 		// TODO Auto-generated method stub
 		UOW.newCurrent();
 		UOW unit = UOW.getCurrent();
-		Game gm = GameMapper.getInstance().get(1);
-		unit.registerClean(gm);
 		
-		ChangeName(gm, "Hello world!!");
-		Game newGame = new Game(0, "Title", "Desc" , 15.4 , 24);
-		AddGame(newGame);
-		Commit();
-		int  s = 5;
+		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
+		RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
+		rd1.forward(request, response);
+		//Game gm = GameMapper.getInstance().get(1);
+		//unit.registerClean(gm);
+		
+		//ChangeName(gm, "Hello world!!");
+		//Game newGame = new Game(0, "Title", "Desc" , 15.4 , 24);
+		//AddGame(newGame);
+		//Commit();
 	}
 
 	private void ChangeName(Game gm, String name) {
 		
 		gm.setName(name);
-		UOW.getCurrent().registerDirty(gm);
+		gm.markDirty();
 	}
 	
 	private void AddGame(Game gm) {
-	
-	UOW.getCurrent().registerNew(gm);
+		gm.markNew();
 	}
 	
 	private void Commit() {
