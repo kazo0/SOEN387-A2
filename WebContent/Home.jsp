@@ -8,8 +8,8 @@
 </head>
 <body>
 	<form action="GameController" method="post">
-		<h1>Games in the Database</h1>
-		<table>
+		<h1>Games</h1>
+		<table border="1">
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
