@@ -61,52 +61,37 @@ public class UOW {
 		Assert.assertNotNull("id not null", obj.getID());
 	}
 	
-	public void commit() {
-		
-		SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-		Connection connection = ssHsession.getConnection();
-		
-		if (connection != null)
-		{
-			insertNew(connection);
-			updateDirty(connection);
-			deleteRemoved(connection);
-			newObjects.clear();
-			dirtyObjects.clear();
-			removedObjects.clear();
-			GameMapper.getInstance().CleanAll();
-			//Close connection
-			JdbcUtilViaSSH.close(null, null, ssHsession);
-		}
-		
-		else 
-		{
-			System.out.println("Connection : false");
-		}
-		
-
+	public void commit() 
+	{
+		insertNew();
+		updateDirty();
+		deleteRemoved();
+		newObjects.clear();
+		dirtyObjects.clear();
+		removedObjects.clear();
+		GameMapper.getInstance().CleanAll();	
 	}
-	private void insertNew(Connection conn) {
+	private void insertNew() {
 		for (Iterator objects = newObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Insert
-			GameMapper.getInstance().insert(obj, conn);
+			GameMapper.getInstance().insert(obj);
 		}
 	}
 	
-	private void updateDirty(Connection conn) {
+	private void updateDirty() {
 		for (Iterator objects = dirtyObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Update
-			GameMapper.getInstance().update(obj, conn);
+			GameMapper.getInstance().update(obj);
 		}
 	}
 	
-	private void deleteRemoved(Connection conn) {
+	private void deleteRemoved() {
 		for (Iterator objects = removedObjects.iterator(); objects.hasNext();) {
 			DomainObject obj = (DomainObject) objects.next();
 			// DB Delete
-			GameMapper.getInstance().delete(obj.getID(), conn);
+			GameMapper.getInstance().delete(obj.getID());
 		}
 	}
 	public List<DomainObject> getAllNew() {

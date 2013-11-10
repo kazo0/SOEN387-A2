@@ -6,8 +6,36 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBAccess {
-
-	public static ResultSet ExecuteQuery (Connection connection, String query) {
+	
+	private static Connection connection;
+	private static SSHjdbcSession ssHsession;
+	
+	private static DBAccess instance = null;
+	
+	
+	public static DBAccess getInstance() 
+	{
+		if (instance == null)
+		{
+			instance = new DBAccess();
+		}
+		return instance;
+	}
+	
+	private DBAccess()
+	{
+		ssHsession = JdbcUtilViaSSH.getConnection();
+		connection = ssHsession.getConnection();
+	}
+	
+	public void dispose()
+	{
+		JdbcUtilViaSSH.close(null, null, ssHsession);
+		instance = null;
+	}
+	
+	
+	public ResultSet ExecuteQuery (String query) {
 		ResultSet result = null;
 		try {
 			Statement st = connection.createStatement();
@@ -20,7 +48,7 @@ public class DBAccess {
 		
 	}
 	
-	public static void Execute (Connection connection, String query) {
+	public void Execute (String query) {
 		try {
 			Statement st = connection.createStatement();
 			st.execute(query);
@@ -31,7 +59,7 @@ public class DBAccess {
 		
 	}
 	
-	public static int ExecuteInsert (Connection connection, String query) {
+	public int ExecuteInsert (String query) {
 		ResultSet result = null;
 		int id = -1;
 		try {

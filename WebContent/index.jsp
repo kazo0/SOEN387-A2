@@ -10,7 +10,7 @@
 </head>
 <body>
 	<form action="HomeController">
-		<input type="submit" value ="Submit" />
+		<input type="submit" value ="Connect" />
 	</form>
 </body>
 </html>

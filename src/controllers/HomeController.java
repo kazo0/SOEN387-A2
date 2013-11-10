@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import database.DBAccess;
 import patterns.GameMapper;
 import patterns.UOW;
 import models.*;
@@ -37,6 +37,7 @@ public class HomeController extends HttpServlet {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		
+		DBAccess.getInstance();
 		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 		RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 		rd1.forward(request, response);

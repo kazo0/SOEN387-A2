@@ -35,10 +35,8 @@ public class GameMapper {
 	public Game[] getAll() {
 		
 		List<Game> list = new ArrayList<Game>();
-		SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-		Connection connection = ssHsession.getConnection();
 		String query = "select * from Games";
-		ResultSet rs = DBAccess.ExecuteQuery(connection, query);
+		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {
 			while(rs.next()) {
 				int id = rs.getInt("id");
@@ -62,8 +60,6 @@ public class GameMapper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Close connection
-		JdbcUtilViaSSH.close(null, null, ssHsession);
 		return list.toArray(new Game[list.size()]);
 	}
 	
@@ -76,10 +72,8 @@ public class GameMapper {
 		Game gm =  (Game) soleInstance.game.get(key);
 		if (gm == null) {
 			try{
-				SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-				Connection connection = ssHsession.getConnection();
 				String query = "select * from Games where id =" + key; 
-				ResultSet rs = DBAccess.ExecuteQuery(connection, query);
+				ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 				rs.next();
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
@@ -88,9 +82,6 @@ public class GameMapper {
 				int qty = rs.getInt("quantity");
 				gm = new Game(id,name,desc,price,qty);
 				this.addGameToMap(gm);
-				
-				//close connection
-				JdbcUtilViaSSH.close(null, null, ssHsession);
 				}
 			catch (Exception ex) {
 					
@@ -100,25 +91,25 @@ public class GameMapper {
 		return gm;
 	}
 	
-	public void insert (DomainObject obj, Connection conn) {
+	public void insert (DomainObject obj) {
 		Game gm = (Game) obj;
 		//DB Insert 
 		String values = "'" + gm.getName() + "','" + gm.getPrice() + "','" + gm.getDescription() + "','" + gm.getQty() + "'";
 		String query = "INSERT INTO Games (name,price,description,quantity) VALUES (" + values + ")";
-		int  id = DBAccess.ExecuteInsert(conn, query);
+		int  id = DBAccess.getInstance().ExecuteInsert(query);
 		// Set id from DB
 		gm.setID(id);
 		soleInstance.game.put(gm.getID(), gm);
 	}
 	
-	public void update(DomainObject obj , Connection conn) {
+	public void update(DomainObject obj) {
 		Game gm = (Game) obj;
 		String query = "UPDATE Games SET name='" + gm.getName() + "',price='" + gm.getPrice() + "',description='" + gm.getDescription() + "', quantity='" + gm.getQty() +  "' WHERE id=" + gm.getID();
-		DBAccess.Execute(conn, query);
+		DBAccess.getInstance().Execute(query);
 	}
-	public void delete(int key, Connection conn) {
+	public void delete(int key) {
 		String query = "DELETE FROM Games WHERE id=" + key;
-		DBAccess.Execute(conn, query);
+		DBAccess.getInstance().Execute(query);
 		soleInstance.game.remove(key);
 	}
 
