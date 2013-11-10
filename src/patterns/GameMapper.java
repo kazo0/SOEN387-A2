@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import models.DBStatus;
 import models.DomainObject;
 import models.Game;
 import database.DBAccess;
@@ -41,21 +42,36 @@ public class GameMapper {
 		try {
 			while(rs.next()) {
 				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				double price = rs.getDouble("price");
-				String desc = rs.getString("description");
-				int qty = rs.getInt("quantity");
-				Game gm = new Game(id,name,desc,price,qty);
+				Game gm = game.get(id);
+				if (gm == null){
+					String name = rs.getString("name");
+					double price = rs.getDouble("price");
+					String desc = rs.getString("description");
+					int qty = rs.getInt("quantity");
+					gm = new Game(id,name,desc,price,qty);
+				}
 				list.add(gm);
 			}
+			// Add All New Games
+			List<DomainObject> addedObjects = UOW.getCurrent().getAllNew();
+			for(DomainObject item : addedObjects) {
+				list.add((Game)item);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//Close connection
+		JdbcUtilViaSSH.close(null, null, ssHsession);
 		return list.toArray(new Game[list.size()]);
 	}
 	
+	private DBStatus GetStatus() {
+		
+		return null;
+	}
+
 	public Game get(int key) {
 		Game gm =  (Game) soleInstance.game.get(key);
 		if (gm == null) {
@@ -72,12 +88,15 @@ public class GameMapper {
 				int qty = rs.getInt("quantity");
 				gm = new Game(id,name,desc,price,qty);
 				this.addGameToMap(gm);
+				
+				//close connection
 				JdbcUtilViaSSH.close(null, null, ssHsession);
 				}
 			catch (Exception ex) {
 					
 			}
 		}
+		
 		return gm;
 	}
 	
@@ -101,6 +120,13 @@ public class GameMapper {
 		String query = "DELETE FROM Games WHERE id=" + key;
 		DBAccess.Execute(conn, query);
 		soleInstance.game.remove(key);
+	}
+
+	public void CleanAll() {
+		for (Map.Entry<Integer, Game> entry : game.entrySet()) {
+			entry.getValue().setStatus(DBStatus.CLEAN);
+		}
+		
 	}
 	
 }

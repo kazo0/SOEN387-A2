@@ -1,6 +1,7 @@
 package patterns;
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,17 +20,15 @@ public class UOW {
 	private List<DomainObject> newObjects = new ArrayList();
 	private List<DomainObject> dirtyObjects = new ArrayList();
 	private List<DomainObject> removedObjects = new ArrayList();
-	private static ThreadLocal current = new ThreadLocal();
+	private static UOW current = null;
 	
 	
-	public static void newCurrent() {
-		setCurrent(new UOW());
-	}
-	public static void setCurrent(UOW uow) {
-		current.set(uow);
-	}
 	public static UOW getCurrent() {
-		return (UOW) current.get();
+		if (current == null)
+		{
+			current = new UOW();
+		}
+		return current;
 	}
 	
 	
@@ -75,6 +74,7 @@ public class UOW {
 			newObjects.clear();
 			dirtyObjects.clear();
 			removedObjects.clear();
+			GameMapper.getInstance().CleanAll();
 			//Close connection
 			JdbcUtilViaSSH.close(null, null, ssHsession);
 		}
@@ -108,6 +108,9 @@ public class UOW {
 			// DB Delete
 			GameMapper.getInstance().delete(obj.getID(), conn);
 		}
+	}
+	public List<DomainObject> getAllNew() {
+		return this.newObjects;
 	}
 
 

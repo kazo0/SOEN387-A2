@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="Test" method="post">
+	<form action="GameController" method="post">
 		<h1>Games in the Database</h1>
 		<table>
 			<tr>
@@ -17,6 +17,8 @@
 				<th>Price</th>
 				<th>Quantity</th>
 				<th>Status</th>
+				<th>Edit</th>
+				<th>Delete</th>
 			</tr>
 			
 				<%
@@ -30,51 +32,14 @@
 	   				<td><label><%= Items[i].getPrice()%></label></td>
 	   				<td><label><%= Items[i].getQty()%></label></td>
 	   				<td><label><%= Items[i].getStatus()%></label></td>
+	   				<td><a href="GameEditController?id=<%= Items[i].getID()%>">Edit</a></td>
+	   				<td><a href="GameController?option=delete&id=<%= Items[i].getID()%>">Delete</a></td>
 				</tr>
 				<% } %>
 		</table>
-		
-		
-		<table>
-			<tr>
-				<td><label>Name :</label></td>
-				<td><input name="Name" type="text" /> </td>
-			</tr>
-			<tr>
-				<td><label>Description :</label></td>
-				<td><input name="Description" type="text" /> </td>
-			</tr>
-			<tr>
-				<td><label>Price :</label></td>
-				<td><input name="Price" type="text" /> </td>
-			</tr>
-			<tr>
-				<td><label>Quantity :</label></td>
-				<td><input name="Quantity" type="text" /> </td>
-			</tr>
-			<tr>
-				<td>
-					Action Type
-				</td>
-				<td>
-					<select>
-						<option value="1">New</option>
-						<option value="2">Edit</option>
-						<option value="3">Delete</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Enter ID of the Item to be Edited or Deleted</label>
-				</td>
-				<td>
-					<input type="text" name="ID">
-				</td>
-			</tr>
-			
-		</table>
-		<input type="submit" value ="Submit" />
+		<a href="AddGame.jsp">Add Game</a>
+		<input type="hidden" name="option" value="commit" />
+		<input type="submit" value ="Commit" />
 	</form>
 </body>
 </html>

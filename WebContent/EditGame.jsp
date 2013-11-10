@@ -31,7 +31,10 @@
 					<td><input name="Quantity" type="text" value="<%= gm.getQty() %>" /> </td>
 				</tr>
 			</table>
+			<input type="hidden" name="id" value="<%= gm.getID() %>" />
 			<input type="hidden" name="option" value="edit"/>
+			
+			<input type="submit" value="edit" />
 	</form>
 </body>
 </html>

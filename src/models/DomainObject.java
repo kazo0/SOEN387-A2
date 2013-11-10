@@ -44,6 +44,7 @@ public abstract class DomainObject {
 	}
 	public void markRemoved() {
 		this.setStatus(DBStatus.DELETED);
+		UOW d = UOW.getCurrent();
 		UOW.getCurrent().registerRemoved(this);
 	}
 	public DBStatus getStatus() {

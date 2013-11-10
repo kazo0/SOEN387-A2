@@ -36,8 +36,6 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		UOW.newCurrent();
-		UOW unit = UOW.getCurrent();
 		
 		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 		RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
@@ -49,27 +47,14 @@ public class HomeController extends HttpServlet {
 		//Game newGame = new Game(0, "Title", "Desc" , 15.4 , 24);
 		//AddGame(newGame);
 		//Commit();
-	}
-
-	private void ChangeName(Game gm, String name) {
 		
-		gm.setName(name);
-		gm.markDirty();
-	}
-	
-	private void AddGame(Game gm) {
-		gm.markNew();
-	}
-	
-	private void Commit() {
-		UOW.getCurrent().commit();
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

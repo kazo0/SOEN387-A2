@@ -27,6 +27,7 @@
 			</tr>
 		</table>
 		<input type="hidden" name="option" value="add"/>
+		<input type="submit" value="Add Game" />
 	</form>
 </body>
 </html>
